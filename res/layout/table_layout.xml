@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="3dp"
+    android:layout_marginBottom="10dp"
+    tools:context=".EditorActivity" >
+
+    <TableLayout
+        android:id="@+id/rootTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:stretchColumns = "*" >
+        
+    </TableLayout>
+    
+    
+</ScrollView>
+
+	<Button
+	    android:id="@+id/commitButton"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:text="Commit!"
+	    android:onClick="commit" />
+
+</RelativeLayout>

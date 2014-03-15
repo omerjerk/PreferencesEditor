@@ -6,21 +6,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
-    
+    tools:context=".EditorActivity" >
+
     <ListView 
-        android:id="@+id/mainList"
+        android:id="@+id/editorList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fastScrollEnabled="true"
-        android:visibility="gone" />
-    
-    <TextView 
-        android:id="@+id/noRootMessage"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone" />
+        android:layout_above="@+id/commit_button" />
+
+    <Button
+        android:id="@+id/commit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Commit the changes !"
+        android:onClick="commit" />
 
 </RelativeLayout>

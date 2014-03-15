@@ -3,35 +3,68 @@ package in.omerjerk.preferenceseditor;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Menu;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 
 public class SpalshScreen extends Activity {
 	
-	private final int SPLASH_DISPLAY_LENGHT = 2700 ; // time is in milli seconds
+	private AdView adView;
+	private boolean clicked;
+	private static final String MY_AD_UNIT_ID = "a1525e5842325da";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		clicked = false;
 		setContentView(R.layout.activity_spalsh_screen);
 		
-		new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(SpalshScreen.this,MainActivity.class);
-                startActivity(mainIntent);
-                finish();
-            }
-        }, SPLASH_DISPLAY_LENGHT);
-    }
+		// Create the adView
+	    adView = new AdView(SpalshScreen.this, AdSize.BANNER, MY_AD_UNIT_ID);
+
+	    // Lookup your LinearLayout assuming it's been given
+	    // the attribute android:id="@+id/mainLayout"
+	    LinearLayout layout = (LinearLayout) findViewById(R.id.adLayout1);
+
+	    // Add the adView to it
+	    layout.addView(adView);
+
+	    // Initiate a generic request to load it with an ad
+	    adView.loadAd(new AdRequest());
+	    
+	    layout.setOnClickListener(new LinearLayout.OnClickListener(){
+	    	public void onClick (View v){
+	    		clicked = true;
+	    	}
+	    });
+	}
 	
+	public void start(View v){
+		if(clicked == true){
+			Intent intent = new Intent(SpalshScreen.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		} else {
+			Toast.makeText(SpalshScreen.this, "Please click on the above ad atleast once to continue.", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+    @Override
+	  public void onDestroy() {
+	    if (adView != null) {
+	      adView.destroy();
+	    }
+	    super.onDestroy();
+	  }
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.spalsh_screen, menu);
-		return true;
+	public void onPause(){
+		super.onPause();
+		clicked = true;
 	}
 
 }
